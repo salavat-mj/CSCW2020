@@ -14,15 +14,17 @@ from model import hybrid_model
 
 parser = argparse.ArgumentParser(description='Recovering Missing Tags')
 
-parser.add_argument('--demo_path', type=str, default="Dribbble_test/black",
+parser.add_argument('--demo_path', type=str, default="Dribbble_test/website",
                     help='predicted image path')
-parser.add_argument('--checkpoint_path', default="real_weights/black_epoch_500_acc_99.pth", type=str,
+parser.add_argument('--checkpoint_path', 
+                    default="real_weights/black.pth", type=str, # "real_weights/black_epoch_500_acc_99.pth"
+                    # default="resnet18-5c106cde.pth", type=str,
                     help='checkpoint state_dict path')
-parser.add_argument('--tag', default=None, type=str,
+parser.add_argument('--tag', default='website', type=str,
                     help='demo tag')
 parser.add_argument('--glove_path', type=str, default="glove.6B.50d.txt",
                     help='glove file')
-parser.add_argument('--result_path', type=str, default="tmp/",
+parser.add_argument('--result_path', type=str, default="./result/",
                     help='save the results to the directory')
 parser.add_argument('--cuda', default="True", type=str,
                     help='Use CUDA to train model')
@@ -31,7 +33,7 @@ args = parser.parse_args()
 
 if __name__ == '__main__':
     
-    net = hybrid_model("resnet", True, True)
+    net = hybrid_model(model_name="resnet", feature_extract=True, use_pretrained=True)
     net.load_state_dict(torch.load(args.checkpoint_path))
     if eval(args.cuda):
         net = net.cuda()

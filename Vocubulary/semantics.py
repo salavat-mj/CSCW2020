@@ -18,7 +18,7 @@ args = parser.parse_args()
 
 # load dataset
 def loadDataSet(FILE="../Metadata.csv"):
-    df = pd.read_csv(FILE,encoding='ISO-8859-15', header = None, low_memory = False)
+    df = pd.read_csv(FILE,encoding='ISO-8859-15', header = None, low_memory = False, index_col=0)
     df = df[[5]]
     df = df.dropna(axis=0,how='any')
     dataSet = []
@@ -56,11 +56,11 @@ def rulesToGraph(associations):
 def create_vocabulary(nodes):
     vocabulary = {}
     for word in nodes:
-        vocabulary[nodes] = [] 
+        vocabulary[word] = [] 
         # find abbreviation and synonyms
         for syn in wordnet.synsets(word): 
             for l in syn.lemmas(): 
-                vocabulary[nodes].append(l.name()) 
+                vocabulary[word].append(l.name()) 
     return vocabulary
 
 def main():
@@ -73,6 +73,8 @@ def main():
     nx.write_gexf(G, "association.gexf")
     """ create vocabulary """
     vocabulary = create_vocabulary(nodes)
+    print(*vocabulary.items(), sep='\n')
+    # [print(node, ':', words) for node, words in vocabulary.items()]
 
 if __name__ == "__main__":
     print('-'*10)

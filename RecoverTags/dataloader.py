@@ -130,7 +130,7 @@ class Dribbble_Demo(data.Dataset):
             torchvision.transforms.ToTensor(), 
             torchvision.transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
         ])
-        image = data_transform(Image.open(image_path))
+        image = data_transform(Image.open(image_path)) # .convert('RGB')
 
         return image
 

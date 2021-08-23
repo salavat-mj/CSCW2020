@@ -1,0 +1,13 @@
+__pycache__/
+.ipynb_checkpoints/
+
+Dribbble_test/
+real_weights/
+result/
+
+*.zip
+*.gexf
+resnet18-5c106cde.pth
+glove.6B.50d.txt
+Metadata.csv
+miniconda.sh
